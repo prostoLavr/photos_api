@@ -1,0 +1,26 @@
+version: '3'
+services:
+  api:
+    build: ./
+    restart: always
+    depends_on:
+      - "postgres"
+    environment:
+      - backend_token=${backend_token}
+    env_file:
+      - .variables.env
+    networks:
+      front_net:
+
+  postgres:
+    image: postgres
+    restart: always
+    env_file:
+      - .variables.env
+    networks:
+      default:
+
+networks:
+  front_net:
+    external: true
+
